@@ -410,6 +410,22 @@ describe Capybara::Session do
           log.text.should == "one"
         end
       end
+
+      it "supports filling in an iframe two levels deep" do
+        @session.visit "/"
+        @session.evaluate_script <<-CODE
+          setTimeout(function() {
+            document.body.innerHTML += '<iframe src="/poltergeist/iframe" name="iframe" width="600" height="600">'
+          }, 0)
+        CODE
+
+        @session.within_frame "iframe" do
+          @session.within_frame "form" do
+            @session.fill_in "First Name", with: "omg"
+            @session.find_field("First Name").value.should == "omg"
+          end
+        end
+      end
     end
 
     # see https://github.com/jonleighton/poltergeist/issues/115
