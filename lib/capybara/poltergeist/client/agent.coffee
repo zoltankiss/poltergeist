@@ -47,6 +47,13 @@ class PoltergeistAgent
     @elements.push(element)
     @elements.length - 1
 
+  setWindowSize: (width, height) ->
+    window.outerWidth = width
+    window.outerHeight = height
+
+    console.log window.outerWidth
+    console.log window.outerHeight
+
   documentSize: ->
     height: document.documentElement.scrollHeight || document.documentElement.clientHeight,
     width:  document.documentElement.scrollWidth  || document.documentElement.clientWidth

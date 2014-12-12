@@ -9,7 +9,8 @@ class Poltergeist.WebPage
                 'renderBase64', 'goBack', 'goForward']
 
   @COMMANDS  = ['currentUrl', 'find', 'nodeCall', 'documentSize',
-                'beforeUpload', 'afterUpload', 'clearLocalStorage']
+                'beforeUpload', 'afterUpload', 'clearLocalStorage',
+                'setWindowSize']
 
   @EXTENSIONS = []
 
@@ -158,8 +159,9 @@ class Poltergeist.WebPage
   viewportSize: ->
     this.native().viewportSize
 
-  setViewportSize: (size) ->
-    this.native().viewportSize = size
+  setViewportSize: (width, height) ->
+    this.native().viewportSize = { width: width, height: height }
+    this.setWindowSize(width, height)
 
   setZoomFactor: (zoom_factor) ->
     this.native().zoomFactor = zoom_factor

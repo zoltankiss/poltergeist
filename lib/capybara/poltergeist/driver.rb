@@ -169,6 +169,24 @@ module Capybara::Poltergeist
       browser.within_window(name, &block)
     end
 
+    def window_size(handle)
+      browser.window_size(handle)
+    end
+
+    def resize_window_to(handle, width, height)
+      browser.resize_window_to(handle, width, height)
+    end
+
+    def maximize_window(handle)
+      browser.maximize_window(handle)
+    end
+
+    def resize(width, height)
+      # DEPRECATED
+      browser.resize_window_to(current_window_handle, width, height)
+    end
+    alias_method :resize_window, :resize
+ 
     def no_such_window_error
       NoSuchWindowError
     end
@@ -194,11 +212,6 @@ module Capybara::Poltergeist
     def zoom_factor=(zoom_factor)
       browser.set_zoom_factor(zoom_factor)
     end
-
-    def resize(width, height)
-      browser.resize(width, height)
-    end
-    alias_method :resize_window, :resize
 
     def scroll_to(left, top)
       browser.scroll_to(left, top)

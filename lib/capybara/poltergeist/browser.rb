@@ -163,6 +163,18 @@ module Capybara::Poltergeist
       switch_to_window(original)
     end
 
+    def window_size(handle)
+      command 'window_size', handle
+    end
+
+    def resize_window_to(handle, width, height)
+      command 'resize_window_to', handle, width, height
+    end
+
+    def maximize_window(handle)
+      command 'maximize_window', handle
+    end
+
     def click(page_id, id)
       command 'click', page_id, id
     end
@@ -215,10 +227,6 @@ module Capybara::Poltergeist
 
     def set_paper_size(size)
       command 'set_paper_size', size
-    end
-
-    def resize(width, height)
-      command 'resize', width, height
     end
 
     def send_keys(page_id, id, keys)

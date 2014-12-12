@@ -23,7 +23,7 @@ class Poltergeist.Browser
       phantom.clearCookies()
 
     @page = @currentPage = new Poltergeist.WebPage
-    @page.setViewportSize(width: @width, height: @height)
+    @page.setViewportSize(@width, @height)
     @page.handle = "#{@_counter++}"
     @pages.push(@page)
 
@@ -235,6 +235,16 @@ class Poltergeist.Browser
     else
       this.sendResponse(false)
 
+  window_size: (handle) ->
+    page = @getPageByHandle(handle)
+    { width: width, height: height } = page.viewportSize()
+    this.sendResponse([width, height])
+
+  resize_window_to: (handle, width, height) ->
+    page = @getPageByHandle(handle)
+    page.setViewportSize(width, height)
+    this.sendResponse(true)
+
   mouse_event: (page_id, id, name) ->
     # Get the node before changing state, in case there is an exception
     node = this.node(page_id, id)
@@ -336,10 +346,6 @@ class Poltergeist.Browser
 
   set_zoom_factor: (zoom_factor) ->
     @currentPage.setZoomFactor(zoom_factor)
-    this.sendResponse(true)
-
-  resize: (width, height) ->
-    @currentPage.setViewportSize(width: width, height: height)
     this.sendResponse(true)
 
   network_traffic: ->
