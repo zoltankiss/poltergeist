@@ -327,6 +327,10 @@ module Capybara::Poltergeist
       json = JSON.load(response)
 
       if json['error']
+puts response.inspect
+puts json.inspect
+puts server.inspect
+puts message.inspect
         klass = ERROR_MAPPINGS[json['error']['name']] || BrowserError
         raise klass.new(json['error'])
       else
